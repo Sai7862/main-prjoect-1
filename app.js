@@ -39,6 +39,14 @@ const store = MongoStore.create({
 store.on("error", () => {
   console.log("ERROR in MONGO SESSION STORE", err);
 });
+mongoose
+  .connect(process.env.ATLASDB_URL)
+  .then(() => {
+    console.log("✅ Connected to MongoDB Atlas");
+    console.log("Database Name:", mongoose.connection.name);
+    console.log("Host:", mongoose.connection.host);
+  })
+  .catch((err) => console.log("❌ Connection Error:", err));
 
 const sessionOptions = {
   store,
