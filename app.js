@@ -118,10 +118,11 @@ app.use((err, req, res, next) => {
   let { statusCode = 505, message = "somthing went wrong" } = err;
   res.status(statusCode).render("error.ejs", { message });
 });
-
-app.listen(8080, () => {
-  console.log("server is running on the port http://localhost:8080/listings");
-});
+const port = process.env.PORT || 8080;
+app.listen(port, () => console.log(`Server running on port ${port}`));
+// app.listen(8080, () => {
+//   console.log("server is running on the port http://localhost:8080/listings");
+// });
 
 // app.get("/testlistings", async (req, res) => {
 //   let samplelisting = new listing({
