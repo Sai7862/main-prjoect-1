@@ -72,11 +72,6 @@ async function main() {
   await mongoose.connect(dbUrl);
 }
 
-//home route
-app.get("/", (req, res) => {
-  res.send("i am root");
-});
-
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -92,6 +87,10 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
   next();
+});
+//home route
+app.get("/", (req, res) => {
+  res.render("layouts/home.ejs");
 });
 
 // app.get("/demouser", async (req, res) => {
@@ -119,7 +118,9 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error.ejs", { message });
 });
 const port = process.env.PORT || 8080;
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, () =>
+  console.log(`Server running on port http://localhost:${port}`)
+);
 // app.listen(8080, () => {
 //   console.log("server is running on the port http://localhost:8080/listings");
 // });
